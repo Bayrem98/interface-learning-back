@@ -21,7 +21,7 @@ export const jwtConstants = {
       signOptions: { expiresIn: 60 * 60 * 8 + 's' },
     }),
   ],
-  providers: [AuthService, LocalStrategy, JwtStrategy, CurrentUserInterceptor],
+  providers: [AuthService, LocalStrategy, JwtStrategy],
   controllers: [AuthController],
   exports: [AuthService],
 })

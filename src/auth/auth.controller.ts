@@ -11,10 +11,9 @@ import CreateUserDto from 'src/user/dto/create-user.dto';
 import { AuthService } from './auth.service';
 import { CurrentUserInterceptor } from './user.interceptor';
 import { LoginAuthDto } from './dto/login-auth.dto';
-/*import { CurrentUserInterceptor } from './user.interceptor';*/
 
 @Controller('auth')
-@UseInterceptors(CurrentUserInterceptor)
+@UseInterceptors()
 export class AuthController {
   constructor(private authService: AuthService) {}
 
