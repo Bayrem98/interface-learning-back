@@ -9,7 +9,9 @@ import { AppController } from './app.controller';
 import { UploadController } from './upload/upload.controller';
 import { AppService } from './app.service';
 import { UploadService } from './upload/upload.service';
+import * as dotenv from 'dotenv';
 
+dotenv.config();
 @Module({
   imports: [
     ConfigModule.forRoot(),
