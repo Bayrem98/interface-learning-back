@@ -21,9 +21,12 @@ export class UploadController {
   @Post('cover')
   async uploadCover(@UploadedFile() file: Express.Multer.File) {
     try {
+      console.log('File received:', file);
       const result = await this.cloudinaryService.uploadFile(file);
+      console.log('Upload result:', result);
       return { statusCode: 200, message: 'Upload successful', data: result };
     } catch (error) {
+      console.error('Error during upload:', error);
       throw new InternalServerErrorException('Internal Server Error');
     }
   }
