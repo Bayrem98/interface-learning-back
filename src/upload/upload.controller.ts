@@ -1,11 +1,4 @@
-import {
-  Controller,
-  Get,
-  Param,
-  Post,
-  Res,
-  UploadedFile,
-} from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Res } from '@nestjs/common';
 import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 
 @Controller('upload')
@@ -13,21 +6,21 @@ export class UploadController {
   constructor(private readonly cloudinaryService: CloudinaryService) {}
 
   @Post('cover')
-  async uploadCover(@Res() res, @UploadedFile() file: Express.Multer.File) {
+  async uploadCover(@Res() res, @Body('file') file: Express.Multer.File) {
     const result = await this.cloudinaryService.uploadFile(file);
     // Vous pouvez renvoyer les détails de l'upload réussi
     return res.json({ message: 'Upload réussi', data: result });
   }
 
   @Post('pdf')
-  async uploadPDF(@Res() res, @UploadedFile() file: Express.Multer.File) {
+  async uploadPDF(@Res() res, @Body('file') file: Express.Multer.File) {
     const result = await this.cloudinaryService.uploadFile(file);
     // Vous pouvez renvoyer les détails de l'upload réussi
     return res.json({ message: 'Upload réussi', data: result });
   }
 
   @Post('audio')
-  async uploadAudio(@Res() res, @UploadedFile() file: Express.Multer.File) {
+  async uploadAudio(@Res() res, @Body('file') file: Express.Multer.File) {
     const result = await this.cloudinaryService.uploadFile(file);
     // Vous pouvez renvoyer les détails de l'upload réussi
     return res.json({ message: 'Upload réussi', data: result });
