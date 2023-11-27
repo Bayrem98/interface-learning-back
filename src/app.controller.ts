@@ -1,6 +1,7 @@
 import {
   Controller,
   Get,
+  InternalServerErrorException,
   Param,
   Post,
   Res,
@@ -16,8 +17,14 @@ export class AppController {
 
   @Post('cover')
   @UseInterceptors(FileInterceptor('file'))
-  uploadCover(@UploadedFile() file: Express.Multer.File) {
-    return this.cloudinaryService.uploadFile(file);
+  async uploadCover(@UploadedFile() file: Express.Multer.File) {
+    try {
+      const result = await this.cloudinaryService.uploadFile(file);
+      return { statusCode: 200, message: 'Upload successful', data: result };
+    } catch (error) {
+      console.error(error);
+      throw new InternalServerErrorException('Internal Server Error');
+    }
   }
 
   @Get('cover/:fileId')
