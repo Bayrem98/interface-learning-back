@@ -1,8 +1,6 @@
 import {
-  Body,
   Controller,
   Get,
-  InternalServerErrorException,
   Param,
   Post,
   Res,
@@ -12,23 +10,26 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
-import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 
 @Controller('upload')
 export class UploadController {
-  constructor(private readonly cloudinaryService: CloudinaryService) {}
-
   @Post('cover')
-  async uploadCover(@UploadedFile() file: Express.Multer.File) {
-    try {
-      console.log('File received:', file);
-      const result = await this.cloudinaryService.uploadFile(file);
-      console.log('Upload result:', result);
-      return { statusCode: 200, message: 'Upload successful', data: result };
-    } catch (error) {
-      console.error('Error during upload:', error);
-      throw new InternalServerErrorException('Internal Server Error');
-    }
+  @UseInterceptors(
+    FileInterceptor('file', {
+      storage: diskStorage({
+        destination: './covers',
+        filename: (req, file, cb) => {
+          const randomName = Array(32)
+            .fill(null)
+            .map(() => Math.round(Math.random() * 16).toString(16))
+            .join('');
+          return cb(null, `${randomName}${extname(file.originalname)}`);
+        },
+      }),
+    }),
+  )
+  uploadCover(@UploadedFile() file: Express.Multer.File) {
+    return file;
   }
 
   @Post('pdf')
@@ -71,7 +72,6 @@ export class UploadController {
 
   @Get('cover/:fileId')
   async serveCover(@Param('fileId') fileId, @Res() res): Promise<any> {
-    // La logique pour servir les fichiers peut rester la même, car ils sont stockés dans Cloudinary
     res.sendFile(fileId, { root: 'covers' });
   }
 
