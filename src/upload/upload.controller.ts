@@ -18,7 +18,7 @@ export class UploadController {
 
   @Post('cover')
   @UseInterceptors(FileInterceptor('file'))
-  uploadImage(@UploadedFile() file: Express.Multer.File) {
+  uploadCover(@UploadedFile() file: Express.Multer.File) {
     return this.cloudinaryService.uploadFile(file);
   }
 
