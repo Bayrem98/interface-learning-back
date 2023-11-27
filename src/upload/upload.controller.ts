@@ -5,69 +5,32 @@ import {
   Post,
   Res,
   UploadedFile,
-  UseInterceptors,
 } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
-import { extname } from 'path';
+import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 
 @Controller('upload')
 export class UploadController {
+  constructor(private readonly cloudinaryService: CloudinaryService) {}
+
   @Post('cover')
-  @UseInterceptors(
-    FileInterceptor('file', {
-      storage: diskStorage({
-        destination: './covers',
-        filename: (req, file, cb) => {
-          const randomName = Array(32)
-            .fill(null)
-            .map(() => Math.round(Math.random() * 16).toString(16))
-            .join('');
-          return cb(null, `${randomName}${extname(file.originalname)}`);
-        },
-      }),
-    }),
-  )
-  uploadCover(@UploadedFile() file: Express.Multer.File) {
-    return file;
+  async uploadCover(@Res() res, @UploadedFile() file: Express.Multer.File) {
+    const result = await this.cloudinaryService.uploadFile(file);
+    // Vous pouvez renvoyer les détails de l'upload réussi
+    return res.json({ message: 'Upload réussi', data: result });
   }
 
   @Post('pdf')
-  @UseInterceptors(
-    FileInterceptor('file', {
-      storage: diskStorage({
-        destination: './pdfs',
-        filename: (req, file, cb) => {
-          const randomName = Array(32)
-            .fill(null)
-            .map(() => Math.round(Math.random() * 16).toString(16))
-            .join('');
-          return cb(null, `${randomName}${extname(file.originalname)}`);
-        },
-      }),
-    }),
-  )
-  uploadPDF(@UploadedFile() file: Express.Multer.File) {
-    return file;
+  async uploadPDF(@Res() res, @UploadedFile() file: Express.Multer.File) {
+    const result = await this.cloudinaryService.uploadFile(file);
+    // Vous pouvez renvoyer les détails de l'upload réussi
+    return res.json({ message: 'Upload réussi', data: result });
   }
 
   @Post('audio')
-  @UseInterceptors(
-    FileInterceptor('file', {
-      storage: diskStorage({
-        destination: './audios',
-        filename: (req, file, cb) => {
-          const randomName = Array(32)
-            .fill(null)
-            .map(() => Math.round(Math.random() * 16).toString(16))
-            .join('');
-          return cb(null, `${randomName}${extname(file.originalname)}`);
-        },
-      }),
-    }),
-  )
-  uploadAudio(@UploadedFile() file: Express.Multer.File) {
-    return file;
+  async uploadAudio(@Res() res, @UploadedFile() file: Express.Multer.File) {
+    const result = await this.cloudinaryService.uploadFile(file);
+    // Vous pouvez renvoyer les détails de l'upload réussi
+    return res.json({ message: 'Upload réussi', data: result });
   }
 
   @Get('cover/:fileId')
