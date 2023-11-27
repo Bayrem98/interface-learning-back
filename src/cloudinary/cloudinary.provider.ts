@@ -8,6 +8,7 @@ export const CloudinaryProvider = {
       api_key: process.env.CLOUDINARY_API_KEY || '552237126716848',
       api_secret:
         process.env.CLOUDINARY_API_SECRET || 't1yOFzk9qiMDLTbO416jzHc5X00',
+      secure: true,
     });
   },
 };
