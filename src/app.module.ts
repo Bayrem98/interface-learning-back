@@ -9,6 +9,7 @@ import { AppController } from './app.controller';
 import { UploadController } from './upload/upload.controller';
 import { AppService } from './app.service';
 import { UploadService } from './upload/upload.service';
+import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
@@ -23,6 +24,7 @@ dotenv.config();
     AuthModule,
     BookModule,
     UploadModule,
+    CloudinaryModule,
   ],
   controllers: [AppController, UploadController],
   providers: [AppService, UploadService],
