@@ -3,11 +3,14 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { BookModule } from './book/book.module';
+import { UploadModule } from './upload/upload.module';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import * as dotenv from 'dotenv';
+import { UploadController } from './upload/upload.controller';
+import { CloudinaryService } from './cloudinary/cloudinary.service';
 
 dotenv.config();
 @Module({
@@ -20,9 +23,10 @@ dotenv.config();
     UserModule,
     AuthModule,
     BookModule,
+    UploadModule,
     CloudinaryModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, UploadController],
+  providers: [AppService, CloudinaryService],
 })
 export class AppModule {}
