@@ -21,7 +21,6 @@ dotenv.config();
     UserModule,
     AuthModule,
     BookModule,
-    UploadModule,
     CloudinaryModule,
   ],
   controllers: [AppController],

@@ -8,11 +8,11 @@ import {
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { CloudinaryService } from './cloudinary/cloudinary.service';
 
-@Controller('cover')
+@Controller('upload')
 export class AppController {
   constructor(private readonly cloudinaryService: CloudinaryService) {}
 
-  @Post('upload')
+  @Post('cover')
   @UseInterceptors(FileInterceptor('file'))
   uploadCover(@UploadedFile() file: Express.Multer.File) {
     return this.cloudinaryService.uploadFile(file);
