@@ -9,8 +9,6 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import * as dotenv from 'dotenv';
-import { UploadController } from './upload/upload.controller';
-import { CloudinaryService } from './cloudinary/cloudinary.service';
 
 dotenv.config();
 @Module({
@@ -26,7 +24,7 @@ dotenv.config();
     UploadModule,
     CloudinaryModule,
   ],
-  controllers: [AppController, UploadController],
-  providers: [AppService, CloudinaryService],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}

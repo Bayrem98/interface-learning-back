@@ -68,6 +68,7 @@ export class UploadController {
 
   @Get('cover/:fileId')
   async serveCover(@Param('fileId') fileId, @Res() res): Promise<any> {
+    // La logique pour servir les fichiers peut rester la même, car ils sont stockés dans Cloudinary
     res.sendFile(fileId, { root: 'covers' });
   }
 
