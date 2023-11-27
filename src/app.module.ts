@@ -6,9 +6,7 @@ import { BookModule } from './book/book.module';
 import { UploadModule } from './upload/upload.module';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
-import { UploadController } from './upload/upload.controller';
 import { AppService } from './app.service';
-import { UploadService } from './upload/upload.service';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import * as dotenv from 'dotenv';
 
@@ -26,7 +24,7 @@ dotenv.config();
     UploadModule,
     CloudinaryModule,
   ],
-  controllers: [AppController, UploadController],
-  providers: [AppService, UploadService],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
