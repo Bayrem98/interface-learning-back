@@ -132,8 +132,10 @@ export class AppController {
     if (!fileId) {
       return res.status(400).json({ message: 'File ID is missing' });
     }
+    console.log(fileId);
     const filePath = join(process.cwd(), 'covers', fileId); // Utilisez le chemin complet
     res.sendFile(filePath);
+    console.log(fileId);
   }
 
   @Get('pdf/:fileId')
