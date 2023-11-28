@@ -8,7 +8,6 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
 import { CloudinaryService } from './cloudinary/cloudinary.service';
 
 @Controller()
