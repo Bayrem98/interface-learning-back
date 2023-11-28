@@ -10,6 +10,8 @@ import { AppService } from './app.service';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import * as dotenv from 'dotenv';
 import { CloudinaryService } from './cloudinary/cloudinary.service';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 dotenv.config();
 @Module({
@@ -19,13 +21,15 @@ dotenv.config();
     MongooseModule.forRoot(
       `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@${process.env.MONGODB_CLUSTER}.gjbdf3j.mongodb.net/${process.env.MONGODB_DATABASE}?retryWrites=true&w=majority`,
     ),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..'),
+    }),
     UserModule,
     AuthModule,
     BookModule,
-    UploadModule,
     CloudinaryModule,
   ],
   controllers: [AppController],
-  providers: [AppService, CloudinaryService],
+  providers: [AppService],
 })
 export class AppModule {}

@@ -19,7 +19,7 @@ export class UploadController {
   @Post('cover')
   @UseInterceptors(FileInterceptor('file'))
   uploadCover(@UploadedFile() file: Express.Multer.File) {
-    return this.cloudinaryService.uploadFile(file);
+    return this.cloudinaryService.uploadImage(file);
   }
 
   @Post('pdf')
