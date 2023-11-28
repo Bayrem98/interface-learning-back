@@ -10,6 +10,7 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { CloudinaryService } from './cloudinary/cloudinary.service';
+import path from 'path';
 
 @Controller()
 export class AppController {
@@ -77,7 +78,7 @@ export class AppController {
       .then((data) => {
         return {
           statusCode: 200,
-          data: data.secure_url,
+          filename: data.secure_url,
         };
       })
       .catch((err) => {
@@ -128,9 +129,11 @@ export class AppController {
 
   @Get('cover/:fileId')
   async serveCover(@Param('fileId') fileId, @Res() res): Promise<any> {
-    res.sendFile(fileId, {
-      root: 'CLOUDINARY_URL=cloudinary://552237126716848:t1yOFzk9qiMDLTbO416jzHc5X00@dbnljryjc',
-    });
+    const filePath = path.join(
+      'CLOUDINARY_URL=cloudinary://552237126716848:t1yOFzk9qiMDLTbO416jzHc5X00@dbnljryjc',
+      fileId,
+    );
+    res.sendFile(filePath);
   }
 
   @Get('pdf/:fileId')
