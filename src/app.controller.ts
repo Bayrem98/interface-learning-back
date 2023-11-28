@@ -16,60 +16,6 @@ export class AppController {
   constructor(private cloudinary: CloudinaryService) {}
 
   @Post('cover')
-  @UseInterceptors(
-    FileInterceptor('file', {
-      storage: diskStorage({
-        destination: './covers',
-        filename: (req, file, cb) => {
-          cb(null, file.originalname);
-        },
-      }),
-    }),
-  )
-  async localcover(@UploadedFile() file: Express.Multer.File) {
-    return {
-      statusCode: 200,
-      data: file.path,
-    };
-  }
-
-  @Post('pdf')
-  @UseInterceptors(
-    FileInterceptor('file', {
-      storage: diskStorage({
-        destination: './pdfs',
-        filename: (req, file, cb) => {
-          cb(null, file.originalname);
-        },
-      }),
-    }),
-  )
-  async localpdf(@UploadedFile() file: Express.Multer.File) {
-    return {
-      statusCode: 200,
-      data: file.path,
-    };
-  }
-
-  @Post('audio')
-  @UseInterceptors(
-    FileInterceptor('file', {
-      storage: diskStorage({
-        destination: './audios',
-        filename: (req, file, cb) => {
-          cb(null, file.originalname);
-        },
-      }),
-    }),
-  )
-  async localaudio(@UploadedFile() file: Express.Multer.File) {
-    return {
-      statusCode: 200,
-      data: file.path,
-    };
-  }
-
-  @Post('cover')
   @UseInterceptors(FileInterceptor('file'))
   async onlinecover(@UploadedFile() file: Express.Multer.File) {
     return await this.cloudinary
