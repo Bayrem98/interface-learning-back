@@ -9,9 +9,9 @@ export class CloudinaryService {
   ): Promise<UploadApiResponse | UploadApiErrorResponse> {
     return new Promise((resolve, reject) => {
       v2.config({
-        cloud_name: 'aaa',
-        api_key: 'bbb',
-        api_secret: 'ccc',
+        cloud_name: 'dbnljryjc',
+        api_key: '552237126716848',
+        api_secret: 't1yOFzk9qiMDLTbO416jzHc5X00',
       });
       const upload = v2.uploader.upload_stream((error, result) => {
         if (error) return reject(error);
