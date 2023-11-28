@@ -1,6 +1,9 @@
 import {
   Controller,
+  Get,
+  Param,
   Post,
+  Res,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
@@ -121,5 +124,20 @@ export class AppController {
           message: err.message,
         };
       });
+  }
+
+  @Get('cover/:fileId')
+  async serveCover(@Param('fileId') fileId, @Res() res): Promise<any> {
+    res.sendFile(fileId, { root: 'covers' });
+  }
+
+  @Get('pdf/:fileId')
+  async servePDF(@Param('fileId') fileId, @Res() res): Promise<any> {
+    res.sendFile(fileId, { root: 'pdfs' });
+  }
+
+  @Get('audio/:fileId')
+  async serveAudio(@Param('fileId') fileId, @Res() res): Promise<any> {
+    res.sendFile(fileId, { root: 'audios' });
   }
 }
