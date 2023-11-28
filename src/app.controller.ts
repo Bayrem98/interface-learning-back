@@ -69,7 +69,7 @@ export class AppController {
     };
   }
 
-  @Post('onlinecover')
+  @Post('cover')
   @UseInterceptors(FileInterceptor('file'))
   async onlinecover(@UploadedFile() file: Express.Multer.File) {
     return await this.cloudinary
@@ -88,7 +88,7 @@ export class AppController {
       });
   }
 
-  @Post('onlinepdf')
+  @Post('pdf')
   @UseInterceptors(FileInterceptor('file'))
   async onlinepdf(@UploadedFile() file: Express.Multer.File) {
     return await this.cloudinary
@@ -107,7 +107,7 @@ export class AppController {
       });
   }
 
-  @Post('onlineaudio')
+  @Post('audio')
   @UseInterceptors(FileInterceptor('file'))
   async onlineaudio(@UploadedFile() file: Express.Multer.File) {
     return await this.cloudinary
