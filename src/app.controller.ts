@@ -10,6 +10,7 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { CloudinaryService } from './cloudinary/cloudinary.service';
+import { join } from 'path';
 
 @Controller()
 export class AppController {
@@ -128,7 +129,11 @@ export class AppController {
 
   @Get('cover/:fileId')
   async serveCover(@Param('fileId') fileId, @Res() res): Promise<any> {
-    res.sendFile(fileId, { root: 'covers' });
+    if (!fileId) {
+      return res.status(400).json({ message: 'File ID is missing' });
+    }
+    const filePath = join(process.cwd(), 'covers', fileId); // Utilisez le chemin complet
+    res.sendFile(filePath);
   }
 
   @Get('pdf/:fileId')
