@@ -10,13 +10,12 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { CloudinaryService } from './cloudinary/cloudinary.service';
-import { join } from 'path';
 
 @Controller()
 export class AppController {
   constructor(private cloudinary: CloudinaryService) {}
 
-  @Post('localcover')
+  @Post('cover')
   @UseInterceptors(
     FileInterceptor('file', {
       storage: diskStorage({
@@ -34,7 +33,7 @@ export class AppController {
     };
   }
 
-  @Post('localpdf')
+  @Post('pdf')
   @UseInterceptors(
     FileInterceptor('file', {
       storage: diskStorage({
@@ -52,7 +51,7 @@ export class AppController {
     };
   }
 
-  @Post('localaudio')
+  @Post('audio')
   @UseInterceptors(
     FileInterceptor('file', {
       storage: diskStorage({
@@ -129,28 +128,16 @@ export class AppController {
 
   @Get('cover/:fileId')
   async serveCover(@Param('fileId') fileId, @Res() res): Promise<any> {
-    if (!fileId) {
-      return res.status(400).json({ message: 'File ID is missing' });
-    }
-    const filePath = join(process.cwd(), 'covers', fileId); // Utilisez le chemin complet
-    res.sendFile(filePath);
+    res.sendFile(fileId, { root: 'covers' });
   }
 
   @Get('pdf/:fileId')
   async servePDF(@Param('fileId') fileId, @Res() res): Promise<any> {
-    if (!fileId) {
-      return res.status(400).json({ message: 'File ID is missing' });
-    }
-    const filePath = join(process.cwd(), 'pdfs', fileId); // Utilisez le chemin complet
-    res.sendFile(filePath);
+    res.sendFile(fileId, { root: 'pdfs' });
   }
 
   @Get('audio/:fileId')
   async serveAudio(@Param('fileId') fileId, @Res() res): Promise<any> {
-    if (!fileId) {
-      return res.status(400).json({ message: 'File ID is missing' });
-    }
-    const filePath = join(process.cwd(), 'audios', fileId); // Utilisez le chemin complet
-    res.sendFile(filePath);
+    res.sendFile(fileId, { root: 'audios' });
   }
 }
