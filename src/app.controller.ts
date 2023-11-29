@@ -37,7 +37,7 @@ export class AppController {
   @UseInterceptors(FileInterceptor('file'))
   async onlinepdf(@UploadedFile() file: Express.Multer.File) {
     return await this.cloudinary
-      .uploadImage(file)
+      .uploadPdf(file)
       .then((data) => {
         return {
           statusCode: 200,
