@@ -62,7 +62,9 @@ export class AuthService {
   async login(loginDto: LoginAuthDto) {
     const { password, username } = loginDto;
     const found = await this.userService.findOneByUsername(username);
-    if (!found) throw new UnauthorizedException();
+    if (!found) {
+      throw new UnauthorizedException("Nom d'utilisateur est incorrect !");
+    }
 
     console.log(await bcrypt.compare(password, found.password));
 
@@ -73,7 +75,7 @@ export class AuthService {
       };
     } else {
       console.log('mot de passe errone');
-      throw new ConflictException('please entre username && password correct');
+      throw new ConflictException(`Votre mot de passe est incorrect !`);
     }
   }
 }
